@@ -188,14 +188,18 @@ public class WechatWorkIdentityProvider
     identity.setUsername(getJsonProperty(profile, "userid").toLowerCase());
     identity.setBrokerUserId(getJsonProperty(profile, "userid").toLowerCase());
     identity.setModelUsername(getJsonProperty(profile, "userid").toLowerCase());
+    String userId = getJsonProperty(profile, "userid").toLowerCase();
     String email = getJsonProperty(profile, "biz_mail");
     if (email == null || email.length() == 0) {
       email = getJsonProperty(profile, "email");
     }
+    if (email == null || email.length() == 0) {
+      email = userId + "@wecom.local";
+    }
     if (email != null && email.contains("@")) {
       identity.setFirstName(email.split("@")[0].toLowerCase());
     } else {
-      identity.setFirstName(getJsonProperty(profile, "userid").toLowerCase());
+      identity.setFirstName(userId);
     }
     identity.setLastName(getJsonProperty(profile, "name"));
     identity.setEmail(email);
