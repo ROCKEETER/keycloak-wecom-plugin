@@ -196,12 +196,12 @@ public class WechatWorkIdentityProvider
     if (email == null || email.length() == 0) {
       email = userId + "@wecom.local";
     }
+    identity.setFirstName(getJsonProperty(profile, "name"));
     if (email != null && email.contains("@")) {
-      identity.setFirstName(email.split("@")[0].toLowerCase());
+      identity.setLastName(email.split("@")[0].toLowerCase());
     } else {
-      identity.setFirstName(userId);
+      identity.setLastName(userId);
     }
-    identity.setLastName(getJsonProperty(profile, "name"));
     identity.setEmail(email);
     // 手机号码，第三方仅通讯录应用可获取
     identity.setUserAttribute(PROFILE_MOBILE, getJsonProperty(profile, "mobile"));
